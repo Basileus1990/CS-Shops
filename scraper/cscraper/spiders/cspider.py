@@ -79,8 +79,7 @@ class CSSpider(scrapy.Spider):
                         "link": sub.xpath(X_CATEGORY_ITEM_LINK).get(),
                     }
                     for sub in top.xpath(X_SUB_CATEGORIES_LIST)
-                ],
-                "subcategories_count": len(top.xpath(X_SUB_CATEGORIES_LIST)),
+                ]
             }
             for top in top_categories if top.css("ul")
         ]
