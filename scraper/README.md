@@ -46,6 +46,24 @@ For each product, a directory will be created, containing:
 '''
 - `image1.jpg`, `image2.jpg`, ... - images of the product
 
+Also in the `DATA_PATH` directory a `categories_list.json` file will be created, containing information about the shops' catgories in the following format:
+```
+[
+    {
+        "name": "Category name",
+        "link": "Relative url to the category from shop.startrek.com",
+        "subcategories":
+        [
+            {
+                "name": "Subcategory name",
+                "link": "Relative url to the category from shop.startrek.com"
+            },
+            ...
+        ],
+    },
+    ...
+]
+```
 
 ## Options
 In the `csraper/settings.py` file, you can set the following options:
