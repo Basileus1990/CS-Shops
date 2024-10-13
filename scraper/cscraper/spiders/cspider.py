@@ -96,9 +96,9 @@ class CSSpider(scrapy.Spider):
         yield from response.follow_all(product_page_links, self.parse_product, meta=response.meta)
 
         # go to the next page 
-        # next_page = response.xpath(X_NEXT_SUBCATEGORY_PAGE_LINK).get()
-        # if next_page:
-        #     yield response.follow(next_page, self.parse_subcategory, meta=response.meta)
+        next_page = response.xpath(X_NEXT_SUBCATEGORY_PAGE_LINK).get()
+        if next_page:
+    	    yield response.follow(next_page, self.parse_subcategory, meta=response.meta)
 
     def parse_product(self, response):
         '''

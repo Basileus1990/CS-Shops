@@ -51,8 +51,6 @@ class StarTrekProductPipeline:
         Creates the directory structure if it doesn't exist.
         '''
 
-        # path_root = getattr(spider, 'dump_path', 'dumps')
-        # product_dir_path = os.path.join(path_root, item['category'], item['subcategory'], item['name'])
         product_dir_path = get_dump_path(DATA_PATH, FLATTEN, item)
         os.makedirs(product_dir_path, exist_ok=True)
 
@@ -109,8 +107,6 @@ class StarTrekProductImagesPipeline(ImagesPipeline):
         item = request.meta['item']
         image_url = request.meta['image_url']
         image_guid = image_url.split('/')[-1].split('?')[0]  # Use the last part of the URL as the filename and skip the query part
-        # path_root = getattr(info.spider, 'dump_path', 'dumps')
-        # img_path = os.path.join(path_root, item['category'], item['subcategory'], item['name'], image_guid)
         img_path = get_dump_path(DATA_PATH, FLATTEN, item) + image_guid
         return img_path
 
