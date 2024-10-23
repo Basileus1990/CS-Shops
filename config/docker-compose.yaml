@@ -1,0 +1,44 @@
+services:
+  mysql:
+    container_name: mysql-db
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: shop
+    networks:
+      - prestashop_network
+    volumes:
+      - ../shop/data/dbdata:/var/lib/mysql
+  prestashop:
+    container_name: prestashop
+    image: prestashop/prestashop:1.7.8
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+    environment:
+      PS_INSTALL_AUTO: 1
+      # TODO: change data to secure ones
+      DB_SERVER: mysql-db
+      DB_NAME: shop
+      DB_USER: root
+      DB_PASSWD: admin
+      DB_PREFIX: ps_
+
+      PS_DOMAIN: localhost:8080
+      PS_LANGUAGE: pl
+      PS_COUNTRY: pl
+      PS_FOLDER_ADMIN: admin123
+      PS_FOLDER_INSTALL: install
+      PS_ENABLE_SSL: 0
+      ADMIN_MAIL: demo@ps.com
+      ADMIN_PASSWD: admin
+
+    networks:
+      - prestashop_network
+    volumes:
+      - ../shop/data/psdata:/var/www/html
+networks:
+  prestashop_network:
